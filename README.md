@@ -1,0 +1,56 @@
+import java.util.Scanner;
+
+public class MediaEscolar {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        double[] notas = new double[8];
+
+        System.out.println("Digite as 8 notas do aluno:");
+
+        // Leitura das 8 notas com validação
+        for (int i = 0; i < 8; i++) {
+            double nota;
+            do {
+                System.out.print("Nota " + (i + 1) + " (0 a 10): ");
+                nota = scanner.nextDouble();
+                if (nota < 0 || nota > 10) {
+                    System.out.println("Nota inválida. Tente novamente.");
+                }
+            } while (nota < 0 || nota > 10);
+            notas[i] = nota;
+        }
+
+        // Cálculo das médias bimestrais
+        double[] mediasBimestrais = new double[4];
+        for (int i = 0; i < 4; i++) {
+            mediasBimestrais[i] = (notas[i * 2] + notas[i * 2 + 1]) / 2.0;
+        }
+
+        // Cálculo das médias semestrais
+        double[] mediasSemestrais = new double[2];
+        for (int i = 0; i < 2; i++) {
+            mediasSemestrais[i] = (mediasBimestrais[i * 2] + mediasBimestrais[i * 2 + 1]) / 2.0;
+        }
+
+        // Cálculo da média final
+        double somaNotas = 0;
+        for (double nota : notas) {
+            somaNotas += nota;
+        }
+        double mediaFinal = somaNotas / 8.0;
+
+        // Exibição dos resultados
+        System.out.println("\n--- Resultados ---");
+        for (int i = 0; i < 4; i++) {
+            System.out.printf("Média do %dº Bimestre: %.2f%n", i + 1, mediasBimestrais[i]);
+        }
+
+        for (int i = 0; i < 2; i++) {
+            System.out.printf("Média do %dº Semestre: %.2f%n", i + 1, mediasSemestrais[i]);
+        }
+
+        System.out.printf("Média Final: %.2f%n", mediaFinal);
+
+        scanner.close();
+    }
+}
